@@ -1,0 +1,6 @@
+{
+  "name": "Or Moscovitz Portfolio",
+  "description": "A minimalist, retro portfolio website for Or Moscovitz, featuring an eye-safe night mode, retro typography, and an animated hamburger menu.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
