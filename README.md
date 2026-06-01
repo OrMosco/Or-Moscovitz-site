@@ -1,20 +1,30 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Or Moscovitz — Personal Site
 
-# Run and deploy your AI Studio app
+**Live site:** [or-moscovitz-site.vercel.app](https://or-moscovitz-site.vercel.app)
 
-This contains everything you need to run your app locally.
+Personal portfolio and blog of Or Moscovitz — architect, computational designer, and software engineer based in Haifa, Israel.
 
-View your app in AI Studio: https://ai.studio/apps/e1e17acc-fc95-470f-b5ee-9a0988b0867b
+## Stack
+
+- React 19 + TypeScript
+- Vite 6
+- Tailwind CSS v4
+- Deployed on [Vercel](https://vercel.com)
 
 ## Run Locally
 
-**Prerequisites:**  Node.js
-
+**Prerequisites:** Node.js
 
 1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+   ```bash
+   npm install
+   ```
+2. Run the dev server:
+   ```bash
+   npm run dev
+   ```
+3. Open [http://localhost:3000](http://localhost:3000)
+
+## Deploy
+
+The site deploys automatically to Vercel on every push to `main`.
