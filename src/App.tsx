@@ -75,7 +75,7 @@ export default function App() {
       style={{ backgroundColor: theme.bg, color: theme.text }}
     >
       {/* Theme toggle circle — fixed top right */}
-      <div className="fixed top-4 right-4 z-50">
+      <div className="fixed top-4 right-4 z-[60]">
         <ThemeToggle themeMode={themeMode} onToggle={handleThemeToggle} />
       </div>
 
