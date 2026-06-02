@@ -122,31 +122,6 @@ export default function HomeView({ setActivePage, setSelectedPost }: HomeViewPro
         </div>
       </section>
 
-      {/* Retro Numbered Grid shortcuts */}
-      <section className="border-t border-b border-neutral-200 dark:border-neutral-800 py-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {navigationShortcuts.map((shortcut, idx) => (
-            <motion.button
-              key={shortcut.name}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15 + idx * 0.04 }}
-              onClick={() => setActivePage(shortcut.page)}
-              className="group text-left p-3 border border-neutral-200 dark:border-neutral-800 rounded-md bg-[#FAF8F5]/40 dark:bg-[#121212]/40 hover:bg-neutral-50 dark:hover:bg-neutral-900/50 hover:border-neutral-800 dark:hover:border-neutral-200 transition-all duration-200 cursor-pointer focus:outline-none"
-              id={`shortcut-${shortcut.page}`}
-            >
-              <span className="font-mono text-xs text-neutral-400 dark:text-neutral-600 block mb-1">
-                {shortcut.number}
-              </span>
-              <span className="font-serif text-lg font-medium text-neutral-800 dark:text-neutral-200 group-hover:text-rose-500 transition-colors flex items-center justify-between">
-                {shortcut.name}
-                <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-              </span>
-            </motion.button>
-          ))}
-        </div>
-      </section>
-
       {/* Latest Writing layout */}
       <section className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
