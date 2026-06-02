@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Sun, Moon, Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { ActivePage } from '../types.ts';
 
 interface HeaderProps {
@@ -46,38 +46,6 @@ export default function Header({ activePage, setActivePage, darkMode, setDarkMod
 
         {/* Action Controls */}
         <div className="flex items-center gap-4">
-          {/* Night Mode Toggle */}
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            className="p-2 border border-neutral-200 dark:border-neutral-800 rounded-md cursor-pointer hover:border-neutral-900 dark:hover:border-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-all duration-200 text-neutral-600 dark:text-neutral-400 focus:outline-none"
-            aria-label="Toggle theme mode"
-            id="theme-toggle-btn"
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              {darkMode ? (
-                <motion.div
-                  key="sun"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.15 }}
-                >
-                  <Sun className="w-4 h-4 text-amber-400" />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="moon"
-                  initial={{ rotate: 90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.15 }}
-                >
-                  <Moon className="w-4 h-4 text-neutral-700" />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </button>
-
           {/* Retro Hamburger Toggle button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
