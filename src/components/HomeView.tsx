@@ -48,24 +48,42 @@ export default function HomeView({ setActivePage, setSelectedPost }: HomeViewPro
       className="flex flex-col gap-12 py-4"
     >
       {/* Intro hero Section */}
-      <section className="flex flex-col gap-4">
+      <section className="flex flex-col gap-3">
         <motion.h1 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.05 }}
-          className="font-serif text-4xl md:text-5xl font-semibold text-neutral-900 dark:text-neutral-50 tracking-tight"
+          className="font-mono text-4xl md:text-5xl font-bold text-neutral-900 dark:text-neutral-50 tracking-tight"
           id="home-hero-greeting"
         >
-          Hi, I'm Or Moscovitz
+          Or Moscovitz
         </motion.h1>
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.12 }}
-          className="font-sans text-lg text-neutral-600 dark:text-neutral-400 font-light leading-relaxed max-w-2xl"
+          transition={{ delay: 0.09 }}
+          className="font-mono text-base text-neutral-700 dark:text-neutral-300 font-normal leading-snug"
+          id="home-hero-roles"
+        >
+          Software Developer / Computational Design / AEC Tools
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.13 }}
+          className="font-mono text-sm text-neutral-500 dark:text-neutral-500 font-normal"
+          id="home-hero-location"
+        >
+          Haifa, Israel
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.17 }}
+          className="font-mono text-sm text-neutral-500 dark:text-neutral-400 font-light leading-relaxed max-w-2xl mt-2"
           id="home-hero-bio"
         >
-          I build tools for the built environment. — spatial analysis, geometry processing, and agentic workflows that automate the complex stuff.
+          I build tools for the built environment — spatial analysis, geometry processing, and agentic workflows that automate the complex stuff.
         </motion.p>
       </section>
 
