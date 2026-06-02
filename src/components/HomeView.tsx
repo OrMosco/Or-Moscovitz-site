@@ -87,6 +87,41 @@ export default function HomeView({ setActivePage, setSelectedPost }: HomeViewPro
         </motion.p>
       </section>
 
+      {/* Work Experience Section */}
+      <section className="flex flex-col gap-4">
+        <motion.h2
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="font-mono text-xs text-neutral-400 dark:text-neutral-600 uppercase tracking-widest"
+        >
+          Work
+        </motion.h2>
+        <div className="flex flex-col gap-3">
+          {[
+            { years: '2025 — 2026', role: 'Software Engineer', company: 'DalusAI' },
+            { years: '2024 — 2025', role: 'Developer', company: 'Derman Verbakl' },
+            { years: '2023 — 2026', role: 'Lecturer of Computational Design', company: 'Haifa University' },
+            { years: '2021 — 2024', role: 'Developer & Product Owner', company: 'URBAN-DASHBOARD (PAZ Group)' },
+          ].map((item, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.22 + idx * 0.05 }}
+              className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6 py-2 border-b border-neutral-100 dark:border-neutral-800/60 last:border-0"
+            >
+              <span className="font-mono text-xs text-neutral-400 dark:text-neutral-600 whitespace-nowrap min-w-[100px]">
+                {item.years}
+              </span>
+              <span className="font-mono text-sm text-neutral-800 dark:text-neutral-200">
+                {item.role} <span className="text-neutral-400 dark:text-neutral-500">@ {item.company}</span>
+              </span>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
       {/* Retro Numbered Grid shortcuts */}
       <section className="border-t border-b border-neutral-200 dark:border-neutral-800 py-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
