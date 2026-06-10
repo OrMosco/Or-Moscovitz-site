@@ -32,13 +32,15 @@ In the AEC context, AI agents are not designed to replace architects, urban plan
   },
   {
     id: 'caadria-2022-urban-code',
-    title: 'An Evolutionary Approach to Parametric Urban Design',
+    title: 'A Generative Design Approach to Urban Sustainability Rating Systems During Early-Stage Urban Development',
     slug: 'caadria-2022-urban-code',
     date: 'Apr 17, 2022',
-    summary: 'Our peer-reviewed conference paper from the CAADRIA 2022 conference at TUM, establishing a rigorous computational framework to optimize neighborhood-scale master plans using genetic algorithms.',
+    summary: 'A peer-reviewed conference paper exploring generative urban models and multi-objective optimization of sustainability rating system (SRS) metrics to enhance SRS implementation in planning. Applied to a case study where contradicting trade-offs between municipal and stakeholder objectives had hindered SRS planning goals.',
     content: `Published in the *Proceedings of the 27th International Conference of the Association for Computer-Aided Architectural Design Research in Asia (CAADRIA) 2022*, hosted by the Technical University of Munich (TUM).
 
-This academic paper introduces a generative optimization workflow developed during my thesis project. The system automatically constructs, simulates, and optimizes urban block structures under high-density environmental constraints, establishing complex fitness criteria over solar radiance, geometric density, and connectivity indexes.`,
+This paper explores generative urban models and multi-objective optimization of sustainability rating system (SRS) metrics to potentially enhance SRS use in planning processes. We apply this framework to a case study that had not reached its SRS planning goals due to contradicting trade-offs between municipal and stakeholder objectives.
+
+The urban model reflects stakeholder design requirements and constraints — such as the desired floor area ratio (FAR), building types, and unit count — while the SRS metrics act as optimization goals. As part of the process, we automate quantitative indicators from Israel SRS *360 Neighbourhood* to use them as optimization goals and to analyse their correlation and trade-offs. Through this process, we enable a generative exploration of high-performing design iterations relative to a chosen set of SRS goals, informing stakeholders of their decision trade-offs concerning SRS indicators in urban development.`,
     url: 'https://papers.cumincad.org/cgi-bin/works/paper/caadria2022_281',
     isExternal: true,
   }

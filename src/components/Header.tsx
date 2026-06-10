@@ -6,23 +6,25 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
-import { ActivePage } from '../types.ts';
+import { ActivePage, ThemeMode } from '../types.ts';
+import ThemeToggle from './ThemeToggle.tsx';
 
 interface HeaderProps {
   activePage: ActivePage;
   setActivePage: (page: ActivePage) => void;
   darkMode: boolean;
   setDarkMode: (dark: boolean) => void;
+  themeMode: ThemeMode;
+  onThemeToggle: () => void;
 }
 
-export default function Header({ activePage, setActivePage, darkMode, setDarkMode }: HeaderProps) {
+export default function Header({ activePage, setActivePage, darkMode, setDarkMode, themeMode, onThemeToggle }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const menuItems = [
     { number: '01', label: 'Writing', value: 'blog' as ActivePage },
     { number: '02', label: 'About', value: 'about' as ActivePage },
     { number: '03', label: 'Projects', value: 'projects' as ActivePage },
-    { number: '04', label: 'Backlog', value: 'backlog' as ActivePage },
   ];
 
   const handleNavClick = (page: ActivePage) => {
@@ -45,7 +47,8 @@ export default function Header({ activePage, setActivePage, darkMode, setDarkMod
         </button>
 
         {/* Action Controls */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
+          <ThemeToggle themeMode={themeMode} onToggle={onThemeToggle} />
           {/* Retro Hamburger Toggle button */}
           <button
             onClick={() => setIsOpen(!isOpen)}

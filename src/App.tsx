@@ -9,8 +9,6 @@ import HomeView from './components/HomeView.tsx';
 import AboutView from './components/AboutView.tsx';
 import BlogListView from './components/BlogListView.tsx';
 import ProjectsView from './components/ProjectsView.tsx';
-import BacklogView from './components/BacklogView.tsx';
-import ThemeToggle from './components/ThemeToggle.tsx';
 import { ActivePage, Post, ThemeMode } from './types.ts';
 import { getTheme, nextTheme, applyTheme } from './theme.ts';
 
@@ -55,8 +53,6 @@ export default function App() {
         return <AboutView />;
       case 'projects':
         return <ProjectsView />;
-      case 'backlog':
-        return <BacklogView />;
       default:
         return (
           <HomeView
@@ -74,16 +70,13 @@ export default function App() {
       className="min-h-screen transition-colors duration-300 flex flex-col antialiased"
       style={{ backgroundColor: theme.bg, color: theme.text }}
     >
-      {/* Theme toggle circle — fixed top right */}
-      <div className="fixed top-4 right-4 z-[60]">
-        <ThemeToggle themeMode={themeMode} onToggle={handleThemeToggle} />
-      </div>
-
       <Header
         activePage={activePage}
         setActivePage={(page) => { setActivePage(page); setSelectedPost(null); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
         darkMode={darkMode}
         setDarkMode={() => {}} // handled by ThemeToggle now
+        themeMode={themeMode}
+        onThemeToggle={handleThemeToggle}
       />
 
       <main className="flex-grow max-w-2xl mx-auto px-6 py-12 md:py-16 w-full">

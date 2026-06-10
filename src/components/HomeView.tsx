@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, ArrowUpRight, Check } from 'lucide-react';
-import { ActivePage, Post, Project } from '../types.ts';
+import { ArrowUpRight } from 'lucide-react';
+import { ActivePage, Post } from '../types.ts';
 import { blogPosts, projects } from '../data.ts';
 
 interface HomeViewProps {
@@ -15,24 +15,11 @@ interface HomeViewProps {
 }
 
 export default function HomeView({ setActivePage, setSelectedPost }: HomeViewProps) {
-  const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
-
   const navigationShortcuts = [
     { number: '01', name: 'Writing', page: 'blog' as ActivePage },
     { number: '02', name: 'About', page: 'about' as ActivePage },
     { number: '03', name: 'Projects', page: 'projects' as ActivePage },
-    { number: '04', name: 'Backlog', page: 'backlog' as ActivePage },
   ];
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email.trim()) {
-      setSubscribed(true);
-      setEmail('');
-      setTimeout(() => setSubscribed(false), 4000);
-    }
-  };
 
   const handlePostClick = (post: Post) => {
     setSelectedPost(post);
@@ -212,47 +199,6 @@ export default function HomeView({ setActivePage, setSelectedPost }: HomeViewPro
             </motion.a>
           ))}
         </div>
-      </section>
-
-      {/* Stay in the Loop Newsletter Card */}
-      <section className="bg-neutral-100 dark:bg-neutral-900/40 p-6 md:p-8 rounded-lg border border-neutral-200 dark:border-neutral-800/80 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
-        <div className="flex flex-col gap-1.5 max-w-sm">
-          <h3 className="font-serif text-xl font-semibold text-neutral-950 dark:text-neutral-50">
-            Stay in the loop
-          </h3>
-          <p className="font-sans text-sm text-neutral-600 dark:text-neutral-400 font-light leading-relaxed">
-            Occasional updates on what I'm building and thoughts. No spam.
-          </p>
-        </div>
-
-        <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2 w-full md:w-auto md:min-w-[280px]">
-          <div className="relative flex-grow">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@domain.com"
-              required
-              className="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-800 dark:bg-neutral-950/60 text-sm text-neutral-900 dark:text-neutral-50 rounded bg-white focus:outline-none focus:border-rose-500 dark:focus:border-rose-500 transition-colors"
-              id="newsletter-email-input"
-            />
-          </div>
-          <button
-            type="submit"
-            disabled={subscribed}
-            className="px-4 py-2 bg-neutral-900 hover:bg-neutral-850 dark:bg-rose-600 dark:hover:bg-rose-500 text-white rounded text-sm font-mono cursor-pointer transition-colors flex items-center justify-center gap-1.5 shrink-0 focus:outline-none"
-            id="newsletter-submit-btn"
-          >
-            {subscribed ? (
-              <>
-                <Check className="w-3.5 h-3.5" />
-                Joined
-              </>
-            ) : (
-              'Subscribe'
-            )}
-          </button>
-        </form>
       </section>
 
       {/* Subtle Archive Links */}
