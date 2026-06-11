@@ -68,55 +68,6 @@ export const projects: Project[] = [
     tag: 'Web Tool',
     isExternal: true,
   },
-  {
-    title: 'Triage ↗',
-    description: 'A clinical analytics platform for codebase health. Monitoring technical debt, churn metrics, and legacy code risk factors with clean reporting screens.',
-    url: 'https://triage.codebasehealth.com',
-    tag: 'SaaS',
-    isExternal: true,
-  },
-  {
-    title: 'DeployCast ↗',
-    description: 'A podcast streaming application built around automated containerized pushes, offering low-latency, real-time audio distribution feeds to listener channels.',
-    url: 'https://deploycast.app',
-    tag: 'Web App',
-    isExternal: true,
-  },
-  {
-    title: 'Driftless ↗',
-    description: 'Elegant, light-weight, and highly customizable contact and inquiry forms designed specifically for statically hosted blogs and marketer portfolios.',
-    url: 'https://usedriftless.com',
-    tag: 'Product',
-    isExternal: true,
-  },
-  {
-    title: 'Homedays ↗',
-    description: 'Haifa, Israel indie rock band. Creating melodic hooks, warm guitars, and custom lighting designs synced over local MIDI bridges.',
-    url: 'https://homedaysband.com',
-    tag: 'Music',
-    isExternal: true,
-  },
-  {
-    title: 'Real ID',
-    description: 'A high-converting identity verification and age gate platform for online Shopify stores. Helping merchants satisfy regulations smoothly.',
-    url: 'https://apps.shopify.com/real-id/',
-    tag: 'Shopify App',
-    isExternal: true,
-  },
-  {
-    title: 'Vimeography',
-    description: 'A popular WordPress plugin that allows developers and creators to curate and showcase beautiful Vimeo video galleries on their sites instantly.',
-    url: 'https://vimeography.com/',
-    tag: 'WordPress',
-    isExternal: true,
-  },
-  {
-    title: 'EDD Mailchimp',
-    description: 'Automatic mailing list integration for digital eCommerce stores operating on Easy Digital Downloads. Synchronizing buyers dynamically.',
-    url: 'https://easydigitaldownloads.com/downloads/mailchimp/',
-    tag: 'WordPress Extension',
-    isExternal: true,
-  }
 ];
 
 export const backlogItems: BacklogItem[] = [
