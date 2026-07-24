@@ -48,6 +48,13 @@ The urban model reflects stakeholder design requirements and constraints — suc
 
 export const projects: Project[] = [
   {
+    title: 'confi3d ↗',
+    description: '3D configurator services for architecture and construction. Interactive real-time product configuration with parametric geometry.',
+    url: 'https://shed-configurator-nine.vercel.app',
+    tags: ['3D', 'Configurator', 'Parametric'],
+    isExternal: true,
+  },
+  {
     title: 'Urban Code: Parametric Urban Design ↗',
     description: 'My computational thesis project establishing parametric urban design methodologies, morphological simulations, and genetic algorithm optimization inside CAD/Grasshopper environments.',
     url: 'https://www.grasshopper3d.com/video/parametirc-urban-design-urban-code-project?id=2985220%3AVideo%3A1937272&page=2',
@@ -63,7 +70,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Shein Career Anchors ↗',
-    description: 'An interactive self-assessment application mapping core professional values, motives, and career anchors based on Edgar Schein’s classic career development model.',
+    description: 'An interactive self-assessment application mapping core professional values, motives, and career anchors based on Edgar Schein\'s classic career development model.',
     url: 'https://shein-career-anchors.vercel.app/',
     tag: 'Web Tool',
     isExternal: true,
