@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Post, Project, BacklogItem } from './types.ts';
+import { Post, Project, BacklogItem, ProjectGroupId } from './types.ts';
 
 export const blogPosts: Post[] = [
   {
@@ -46,61 +46,89 @@ The urban model reflects stakeholder design requirements and constraints — suc
   }
 ];
 
+export const projectGroups: { id: ProjectGroupId; label: string; note: string }[] = [
+  {
+    id: 'aec',
+    label: 'AEC, geometry & tools',
+    note: 'Primary work — software and computational design for the built environment.',
+  },
+  {
+    id: 'product',
+    label: 'Product & web',
+    note: 'Shipped products and web tools.',
+  },
+  {
+    id: 'other',
+    label: 'Other',
+    note: 'Side projects, including music.',
+  },
+];
+
 export const projects: Project[] = [
   {
-    title: 'confi3d ↗',
+    title: 'confi3d',
     description: '3D configurator services for architecture and construction. Interactive real-time product configuration with parametric geometry.',
     url: 'https://shed-configurator-nine.vercel.app',
-    tags: ['3D', 'Configurator', 'Parametric'],
+    tags: ['AEC', '3D', 'Configurator', 'Parametric'],
+    badge: 'AEC tool',
+    group: 'aec',
+    linkKind: 'site',
     isExternal: true,
   },
   {
-    title: 'Urban Code: Parametric Urban Design ↗',
+    title: 'Urban Code: Parametric Urban Design',
     description: 'My computational thesis project establishing parametric urban design methodologies, morphological simulations, and genetic algorithm optimization inside CAD/Grasshopper environments.',
     url: 'https://www.grasshopper3d.com/video/parametirc-urban-design-urban-code-project?id=2985220%3AVideo%3A1937272&page=2',
-    tags: ['Computational Design', 'Geometry'],
+    tags: ['AEC', 'Computational Design', 'Geometry'],
+    badge: 'Computational design',
+    group: 'aec',
+    linkKind: 'video',
     isExternal: true,
   },
   {
-    title: '3D Bin Packing Problem Solver ↗',
+    title: '3D Bin Packing Problem Solver',
     description: 'An interactive heuristic 3D bin packing solver and visualizer designed to optimize spatial arrangements, container layout density, and geometric package distribution.',
     url: 'https://ormosco.github.io/3d-bin-3695packing-problem/',
     tag: 'Geometry',
+    badge: 'Geometry',
+    group: 'aec',
+    linkKind: 'site',
     isExternal: true,
   },
   {
-    title: 'Shein Career Anchors ↗',
+    title: 'Shein Career Anchors',
     description: 'An interactive self-assessment application mapping core professional values, motives, and career anchors based on Edgar Schein\'s classic career development model.',
     url: 'https://shein-career-anchors.vercel.app/',
     tag: 'Web Tool',
+    group: 'product',
+    linkKind: 'site',
     isExternal: true,
   },
   {
-    title: 'Triage ↗',
+    title: 'Triage',
     description: 'A clinical analytics platform for codebase health. Monitoring technical debt, churn metrics, and legacy code risk factors with clean reporting screens.',
     url: 'https://triage.codebasehealth.com',
     tag: 'SaaS',
+    group: 'product',
+    linkKind: 'site',
     isExternal: true,
   },
   {
-    title: 'DeployCast ↗',
+    title: 'DeployCast',
     description: 'A podcast streaming application built around automated containerized pushes, offering low-latency, real-time audio distribution feeds to listener channels.',
     url: 'https://deploycast.app',
     tag: 'Web App',
+    group: 'product',
+    linkKind: 'site',
     isExternal: true,
   },
   {
-    title: 'Driftless ↗',
+    title: 'Driftless',
     description: 'Elegant, light-weight, and highly customizable contact and inquiry forms designed specifically for statically hosted blogs and marketer portfolios.',
     url: 'https://usedriftless.com',
     tag: 'Product',
-    isExternal: true,
-  },
-  {
-    title: 'Homedays ↗',
-    description: 'Haifa, Israel indie rock band. Creating melodic hooks, warm guitars, and custom lighting designs synced over local MIDI bridges.',
-    url: 'https://homedaysband.com',
-    tag: 'Music',
+    group: 'product',
+    linkKind: 'site',
     isExternal: true,
   },
   {
@@ -108,6 +136,8 @@ export const projects: Project[] = [
     description: 'A high-converting identity verification and age gate platform for online Shopify stores. Helping merchants satisfy regulations smoothly.',
     url: 'https://apps.shopify.com/real-id/',
     tag: 'Shopify App',
+    group: 'product',
+    linkKind: 'site',
     isExternal: true,
   },
   {
@@ -115,6 +145,8 @@ export const projects: Project[] = [
     description: 'A popular WordPress plugin that allows developers and creators to curate and showcase beautiful Vimeo video galleries on their sites instantly.',
     url: 'https://vimeography.com/',
     tag: 'WordPress',
+    group: 'product',
+    linkKind: 'site',
     isExternal: true,
   },
   {
@@ -122,9 +154,52 @@ export const projects: Project[] = [
     description: 'Automatic mailing list integration for digital eCommerce stores operating on Easy Digital Downloads. Synchronizing buyers dynamically.',
     url: 'https://easydigitaldownloads.com/downloads/mailchimp/',
     tag: 'WordPress Extension',
+    group: 'product',
+    linkKind: 'site',
     isExternal: true,
-  }
+  },
+  {
+    title: 'Homedays',
+    description: 'Haifa, Israel indie rock band. Creating melodic hooks, warm guitars, and custom lighting designs synced over local MIDI bridges.',
+    url: 'https://homedaysband.com',
+    tag: 'Music',
+    group: 'other',
+    linkKind: 'site',
+    isExternal: true,
+  },
 ];
+
+function isSourceRepository(url: string): boolean {
+  try {
+    const host = new URL(url).hostname.replace(/^www\./, '');
+    return host === 'github.com' || host === 'gitlab.com';
+  } catch {
+    return false;
+  }
+}
+
+/** Live products and demos are "Visit site". Code hosts are "View source". */
+export function projectLinkLabel(project: Project): string {
+  if (project.linkKind === 'source' || isSourceRepository(project.url)) return 'View source';
+  if (project.linkKind === 'video') return 'Watch';
+  return 'Visit site';
+}
+
+export function projectLinkBadge(project: Project): string {
+  if (project.linkKind === 'source' || isSourceRepository(project.url)) return 'Source';
+  if (project.linkKind === 'video') return 'Video';
+  return 'Live';
+}
+
+export function projectBadge(project: Project): string {
+  return project.badge || project.tag || project.tags?.[0] || 'Project';
+}
+
+export function projectTags(project: Project): string[] {
+  const tags = [...(project.tags || [])];
+  if (project.tag && !tags.includes(project.tag)) tags.unshift(project.tag);
+  return tags.length > 0 ? tags : ['Project'];
+}
 
 export const backlogItems: BacklogItem[] = [
   {

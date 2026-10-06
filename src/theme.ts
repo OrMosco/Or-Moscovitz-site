@@ -8,7 +8,7 @@ export const themes: Theme[] = [
     text: '#f0ece4',
     accent: '#f0ece4',
     border: '#2a2a2a',
-    muted: '#666666',
+    muted: '#c4c4c4',
     halfColor: '#f0ece4',
   },
   {
