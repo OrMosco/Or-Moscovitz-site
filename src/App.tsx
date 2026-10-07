@@ -3,19 +3,66 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Link, Navigate, Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
 import Header from './components/Header.tsx';
 import HomeView from './components/HomeView.tsx';
 import AboutView from './components/AboutView.tsx';
 import BlogListView from './components/BlogListView.tsx';
+import BlogPostView from './components/BlogPostView.tsx';
 import ProjectsView from './components/ProjectsView.tsx';
-import { ActivePage, Post, ThemeMode } from './types.ts';
+import { ThemeMode } from './types.ts';
 import { getTheme, nextTheme, applyTheme } from './theme.ts';
+import { blogPosts } from './data.ts';
+
+function RouteEffects() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    const slug = pathname.startsWith('/writing/') ? decodeURIComponent(pathname.slice('/writing/'.length)) : '';
+    const post = slug ? blogPosts.find((entry) => entry.slug === slug) : undefined;
+    if (post) {
+      document.title = `${post.title} — Or Moscovitz`;
+    } else if (pathname === '/about') {
+      document.title = 'About — Or Moscovitz';
+    } else if (pathname === '/projects') {
+      document.title = 'Projects — Or Moscovitz';
+    } else if (pathname === '/writing') {
+      document.title = 'Writing — Or Moscovitz';
+    } else {
+      document.title = 'Or Moscovitz';
+    }
+  }, [pathname]);
+
+  return null;
+}
+
+function WritingPost() {
+  const { slug } = useParams();
+  const navigate = useNavigate();
+  const post = blogPosts.find((entry) => entry.slug === slug);
+  if (!post?.content) {
+    return <Navigate to="/writing" replace />;
+  }
+  return <BlogPostView post={post} onBack={() => navigate('/writing')} />;
+}
+
+function NotFound() {
+  return (
+    <div className="flex flex-col gap-4 py-8">
+      <span className="font-mono text-xs uppercase tracking-widest text-rose-500 font-semibold">404</span>
+      <h1 className="font-serif text-3xl font-semibold text-neutral-900 dark:text-neutral-50 tracking-tight">
+        This page is not on the index.
+      </h1>
+      <Link to="/" className="font-mono text-sm text-rose-500 hover:underline w-fit">
+        Return to overview →
+      </Link>
+    </div>
+  );
+}
 
 export default function App() {
-  const [activePage, setActivePage] = useState<ActivePage>('home');
-  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
-
   const [themeMode, setThemeMode] = useState<ThemeMode>(() => {
     const saved = localStorage.getItem('theme') as ThemeMode | null;
     if (saved && ['dark', 'light', 'yellow', 'olive'].includes(saved)) return saved;
@@ -27,40 +74,7 @@ export default function App() {
   }, [themeMode]);
 
   const handleThemeToggle = () => {
-    setThemeMode(prev => nextTheme(prev));
-  };
-
-  // darkMode boolean for Header backwards compat
-  const darkMode = themeMode !== 'light';
-
-  const renderCurrentView = () => {
-    switch (activePage) {
-      case 'home':
-        return (
-          <HomeView
-            setActivePage={(page) => { setActivePage(page); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-            setSelectedPost={(post) => { setSelectedPost(post); setActivePage('blog'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-          />
-        );
-      case 'blog':
-        return (
-          <BlogListView
-            selectedPost={selectedPost}
-            setSelectedPost={(post) => { setSelectedPost(post); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-          />
-        );
-      case 'about':
-        return <AboutView />;
-      case 'projects':
-        return <ProjectsView />;
-      default:
-        return (
-          <HomeView
-            setActivePage={(page) => { setActivePage(page); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-            setSelectedPost={(post) => { setSelectedPost(post); setActivePage('blog'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-          />
-        );
-    }
+    setThemeMode((prev) => nextTheme(prev));
   };
 
   const theme = getTheme(themeMode);
@@ -70,17 +84,18 @@ export default function App() {
       className="min-h-screen transition-colors duration-300 flex flex-col antialiased"
       style={{ backgroundColor: theme.bg, color: theme.text }}
     >
-      <Header
-        activePage={activePage}
-        setActivePage={(page) => { setActivePage(page); setSelectedPost(null); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-        darkMode={darkMode}
-        setDarkMode={() => {}} // handled by ThemeToggle now
-        themeMode={themeMode}
-        onThemeToggle={handleThemeToggle}
-      />
+      <RouteEffects />
+      <Header themeMode={themeMode} onThemeToggle={handleThemeToggle} />
 
       <main className="flex-grow max-w-2xl mx-auto px-6 py-12 md:py-16 w-full">
-        {renderCurrentView()}
+        <Routes>
+          <Route path="/" element={<HomeView />} />
+          <Route path="/about" element={<AboutView />} />
+          <Route path="/projects" element={<ProjectsView />} />
+          <Route path="/writing" element={<BlogListView />} />
+          <Route path="/writing/:slug" element={<WritingPost />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </main>
 
       <footer
@@ -90,18 +105,19 @@ export default function App() {
         <div className="max-w-2xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono" style={{ color: theme.muted }}>
           <div className="flex flex-col items-center sm:items-start gap-1">
             <span>© 2026 OR MOSCOVITZ. HAIFA, ISRAEL.</span>
-            <span>BUILT WITH PREMIUM MINIMAL DESIGN</span>
+            <span>Built with React, TypeScript, and Vite</span>
           </div>
           <div className="flex items-center gap-3">
             <span>HFA • UTC+3 (IDT)</span>
             <span className="opacity-40">|</span>
-            <button
-              onClick={() => { setActivePage('home'); setSelectedPost(null); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-              className="hover:opacity-80 text-[11px] font-mono cursor-pointer bg-transparent border-0 p-0 focus:outline-none"
+            <Link
+              to="/"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="hover:opacity-80 text-[11px] font-mono"
               style={{ color: theme.muted }}
             >
               INDEX INDEX
-            </button>
+            </Link>
           </div>
         </div>
       </footer>

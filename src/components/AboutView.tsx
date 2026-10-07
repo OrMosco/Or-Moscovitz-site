@@ -34,7 +34,7 @@ export default function AboutView() {
           02 / ABOUT ME
         </span>
         <h1 className="font-serif text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-neutral-50 tracking-tight" id="about-main-title">
-          Hi! I'm Or Moscovitz, and I help make the internet.
+          Hi, I'm Or Moscovitz. I build software and computational tools for the built environment.
         </h1>
         <div className="flex items-center gap-1 text-sm text-neutral-500 dark:text-neutral-400 font-mono mt-1">
           <MapPin className="w-4 h-4 text-rose-500" />
@@ -59,7 +59,7 @@ export default function AboutView() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-2.5 font-mono text-xs mt-2 text-neutral-600 dark:text-neutral-400">
+          <div className="flex flex-col gap-2.5 font-mono text-xs mt-2 text-neutral-700 dark:text-neutral-200">
             <span className="text-[10px] uppercase tracking-widest text-neutral-400 dark:text-neutral-500 font-bold">CONTACT METRICS</span>
             <a href="mailto:ormosco41@gmail.com" className="hover:text-rose-500 transition-colors flex items-center gap-2">
               <Mail className="w-3.5 h-3.5" />
@@ -73,7 +73,7 @@ export default function AboutView() {
         </div>
 
         {/* Center & Right Sides: Story */}
-        <div className="md:col-span-2 flex flex-col gap-5 text-neutral-600 dark:text-neutral-400 font-light leading-relaxed font-sans text-sm md:text-base">
+        <div className="md:col-span-2 flex flex-col gap-5 text-neutral-700 dark:text-neutral-200 font-light leading-relaxed font-sans text-sm md:text-base">
           <p>
             I am a software developer and builder. I build tools for the built environment.  I’ve spent most of my career in and around design, architecture, cities, the building sciences, and construction technologies.
           </p>
@@ -99,7 +99,7 @@ export default function AboutView() {
           <h3 className="font-serif text-xl font-semibold text-neutral-950 dark:text-neutral-50">
             Stay in the loop
           </h3>
-          <p className="font-sans text-xs md:text-sm text-neutral-600 dark:text-neutral-400 font-light max-w-xl">
+          <p className="font-sans text-xs md:text-sm text-neutral-700 dark:text-neutral-200 font-light max-w-xl">
             Occasional dispatches regarding what I am currently making, guitar pedal configurations, and writing essays on developer automation.
           </p>
         </div>
