@@ -14,6 +14,7 @@ import ProjectsView from './components/ProjectsView.tsx';
 import { ThemeMode } from './types.ts';
 import { getTheme, nextTheme, applyTheme } from './theme.ts';
 import { blogPosts } from './data.ts';
+import CityPlanBackground from './components/CityPlanBackground.tsx';
 
 function RouteEffects() {
   const { pathname } = useLocation();
@@ -81,9 +82,10 @@ export default function App() {
 
   return (
     <div
-      className="min-h-screen transition-colors duration-300 flex flex-col antialiased"
+      className="relative z-0 min-h-screen transition-colors duration-300 flex flex-col antialiased"
       style={{ backgroundColor: theme.bg, color: theme.text }}
     >
+      <CityPlanBackground theme={theme} />
       <RouteEffects />
       <Header themeMode={themeMode} onThemeToggle={handleThemeToggle} />
 
