@@ -52,29 +52,29 @@ export const CITY_PLAN = {
 
   /** Resting / fully-revealed road styles. `body` is the thickened carriageway. */
   roads: {
-    alley: { width: 0.45, alpha: 0.11, hot: 0.18, body: 2.4 },
-    street: { width: 0.72, alpha: 0.16, hot: 0.3, body: 4.2 },
-    avenue: { width: 1.05, alpha: 0.22, hot: 0.34, body: 6.4 },
+    alley: { width: 0.55, alpha: 0.2, hot: 0.26, body: 2.6 },
+    street: { width: 0.9, alpha: 0.3, hot: 0.4, body: 4.8 },
+    avenue: { width: 1.2, alpha: 0.38, hot: 0.44, body: 7 },
   },
   /** Carriageway opacity at full reveal, multiplied by influence. */
-  bodyAlpha: 0.055,
+  bodyAlpha: 0.09,
 
-  propertyAlpha: 0.34,
-  propertyWidth: 0.6,
-  lotAlpha: 0.4,
-  lotWidth: 0.55,
+  propertyAlpha: 0.48,
+  propertyWidth: 0.65,
+  lotAlpha: 0.55,
+  lotWidth: 0.6,
   /** Footprint fill at full reveal. */
-  footprintAlpha: 0.075,
-  footprintStroke: 0.34,
-  footprintWidth: 0.65,
+  footprintAlpha: 0.13,
+  footprintStroke: 0.5,
+  footprintWidth: 0.7,
   /** Max extrusion offset, in px, before per-building variation. */
-  lift: 2.6,
+  lift: 3.2,
   /** Interior plan-line opacity. */
   seamAlpha: 0.28,
 
   /** Site red, used for the single parcel under the focus. */
   accent: '#f43f5e',
-  accentAlpha: 0.72,
+  accentAlpha: 0.88,
   accentWidth: 1.15,
 
   /**
@@ -84,7 +84,7 @@ export const CITY_PLAN = {
    */
   columnHalf: 348,
   columnFeather: 88,
-  columnMute: 0.2,
+  columnMute: 0.16,
   /** Flat multiplier when the viewport is too narrow to have margins. */
   narrowMute: 0.42,
   /** Extra mute behind the sticky header, fading out over headerFade px. */
@@ -247,12 +247,20 @@ export function createCityPlan(canvas: HTMLCanvasElement, getTheme: () => Theme)
 
   function layout() {
     if (destroyed) return;
-    const nextWidth = canvas.clientWidth || window.innerWidth;
-    const nextHeight = canvas.clientHeight || window.innerHeight;
+    // Canvas width/height attributes are presentational hints, so `inset: 0`
+    // does not stretch the element. Size from the layout viewport (not
+    // innerWidth, which includes the scrollbar and can overflow).
+    const nextWidth = document.documentElement.clientWidth;
+    const nextHeight = document.documentElement.clientHeight;
     if (nextWidth < 2 || nextHeight < 2) return;
     width = nextWidth;
     height = nextHeight;
-    dpr = Math.min(window.devicePixelRatio || 1, CITY_PLAN.maxDpr);
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+    let nextDpr = window.devicePixelRatio || 1;
+    const nearest = Math.round(nextDpr);
+    if (nearest >= 1 && Math.abs(nextDpr - nearest) < 0.04) nextDpr = nearest;
+    dpr = Math.min(nextDpr, CITY_PLAN.maxDpr);
     canvas.width = Math.max(1, Math.round(width * dpr));
     canvas.height = Math.max(1, Math.round(height * dpr));
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -294,7 +302,11 @@ export function createCityPlan(canvas: HTMLCanvasElement, getTheme: () => Theme)
   }
 
   function onPointerMove(event: PointerEvent) {
-    if (mode !== 'pointer' || event.pointerType === 'touch') return;
+    if (mode === 'static' || event.pointerType === 'touch') return;
+    if (window.matchMedia('(max-width: 768px)').matches) return;
+    // A real mouse means pointer mode, even if the primary input media query
+    // is coarse (touch laptops, and some Linux desktops).
+    mode = 'pointer';
     targetX = event.clientX;
     targetY = event.clientY;
     pointerInside = true;
